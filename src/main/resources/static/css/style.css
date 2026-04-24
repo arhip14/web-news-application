@@ -1,0 +1,190 @@
+:root {
+    --primary: #003366; /* КПІ Синій */
+    --accent: #007AFF;
+    --bg: #f5f5f7;
+    --text-main: #1d1d1f;
+    --text-secondary: #86868b;
+    --border: #d2d2d7;
+    --white: #ffffff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg);
+    color: var(--text-main);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Навігація */
+.navbar {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.8rem 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+}
+
+/* Адмін-панель (Прихована за замовчуванням) */
+.admin-panel {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.admin-panel.hidden {
+    display: none !important;
+}
+
+.admin-panel h3 {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Форми */
+input, textarea, select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 16px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    transition: border-color 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+.btn-send {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-send:hover {
+    background: #002244;
+}
+
+/* Картки новин */
+.news-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.news-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+    transition: background 0.2s;
+}
+
+.news-card:hover {
+    background: #fafafa;
+}
+
+.category-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.news-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.news-card p {
+    color: #424245;
+    font-size: 15px;
+    margin-bottom: 16px;
+}
+
+/* Мета-дані */
+.card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 12px;
+    border-top: 1px solid #f2f2f2;
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+/* Профіль */
+.profile-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+}
+
+.nav-name {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.nav-role {
+    font-size: 10px;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.btn-logout-icon {
+    margin-left: 8px;
+    color: #ff3b30;
+    font-size: 16px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.btn-mini-delete {
+    background: none;
+    border: none;
+    color: #ff3b30;
+    font-size: 12px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn-mini-delete:hover {
+    text-decoration: underline;
+}

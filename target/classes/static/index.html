@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>KPI News</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="navbar">
+    <div class="logo">KPI NEWS</div>
+
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search news, topics, creators...">
+    </div>
+
+    <nav id="authNav"></nav>
+</header>
+    <main>
+        <section id="adminSection" class="admin-panel" style="display:none;">
+            <input type="text" id="newsTitle" placeholder="Заголовок">
+            <select id="newsCategory"></select>
+            <textarea id="newsContent" placeholder="Текст"></textarea>
+            <button id="publishBtn">Опублікувати</button>
+        </section>
+        <div id="newsGrid" class="news-grid"></div>
+    </main>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
