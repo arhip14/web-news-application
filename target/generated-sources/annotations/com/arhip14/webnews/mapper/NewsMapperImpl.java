@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-04-24T20:48:18+0300",
+    date = "2026-05-06T00:14:49+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
@@ -30,6 +30,7 @@ public class NewsMapperImpl implements NewsMapper {
         newsDTO.setTitle( news.getTitle() );
         newsDTO.setContent( news.getContent() );
         newsDTO.setCreatedAt( news.getCreatedAt() );
+        newsDTO.setImageUrl( news.getImageUrl() );
 
         return newsDTO;
     }
@@ -44,6 +45,7 @@ public class NewsMapperImpl implements NewsMapper {
 
         news.setTitle( newsDTO.getTitle() );
         news.setContent( newsDTO.getContent() );
+        news.setImageUrl( newsDTO.getImageUrl() );
 
         return news;
     }

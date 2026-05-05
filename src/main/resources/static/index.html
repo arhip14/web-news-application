@@ -8,22 +8,106 @@
 <body>
 <header class="navbar">
     <div class="logo">KPI NEWS</div>
-
     <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="Search news, topics, creators...">
+        <input type="text" id="searchInput" placeholder="Пошук новин, тем...">
     </div>
-
     <nav id="authNav"></nav>
 </header>
-    <main>
-        <section id="adminSection" class="admin-panel" style="display:none;">
-            <input type="text" id="newsTitle" placeholder="Заголовок">
+
+<div id="categoryMenu" class="category-nav">
+    <!-- Категорії підтягнуться через JS -->
+</div>
+
+<main>
+    <!-- ПАНЕЛЬ АДМІНІСТРАТОРА (БАЧИТЬ ADMIN АБО CREATOR) -->
+    <section id="adminSection" class="admin-panel" style="display:none;">
+        <div id="publishArea">
+            <h3 class="admin-title">Створити публікацію</h3>
+            <input type="text" id="newsTitle" placeholder="Заголовок новини">
             <select id="newsCategory"></select>
-            <textarea id="newsContent" placeholder="Текст"></textarea>
-            <button id="publishBtn">Опублікувати</button>
-        </section>
-        <div id="newsGrid" class="news-grid"></div>
-    </main>
-    <script type="module" src="js/app.js"></script>
+
+            <div class="upload-row">
+                <img id="previewNewsImage" src="https://placehold.co/600x400/eeeeee/999999?text=No+Image" class="news-preview-img">
+                <div>
+                    <label class="btn-send btn-light">
+                        📁 Завантажити обкладинку
+                        <input type="file" style="display:none;" accept="image/png, image/jpeg, image/webp" onchange="window.uploadNewsImage(this)">
+                    </label>
+                    <input type="hidden" id="newsImageUrl">
+                </div>
+            </div>
+
+            <textarea id="newsContent" placeholder="Текст новини"></textarea>
+            <button id="publishBtn" class="btn-send">Опублікувати новину</button>
+        </div>
+
+        <hr class="admin-divider" id="adminDivider" style="display:none;">
+
+        <!-- КЕРУВАННЯ КОРИСТУВАЧАМИ (ТІЛЬКИ ДЛЯ ROLE_ADMIN) -->
+        <div id="userManagerArea" style="display:none;">
+            <h3 class="admin-title">Керування користувачами</h3>
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>Користувач</th>
+                        <th>Email</th>
+                        <th>Поточна Роль</th>
+                        <th>Дії</th>
+                    </tr>
+                    </thead>
+                    <tbody id="adminUserTable">
+                    <!-- Користувачі підтягнуться через JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <div id="newsGrid" class="news-grid"></div>
+</main>
+
+<!-- МОДАЛКА ПРОФІЛЮ -->
+<!-- МОДАЛЬНЕ ВІКНО ПРОФІЛЮ -->
+<div id="profileModal" class="modal-overlay" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Налаштування профілю</h2>
+            <span id="profileRoleBadge" class="role-badge"></span>
+        </div>
+
+        <div class="avatar-edit-section">
+            <img id="previewAvatar" src="" class="avatar-large">
+            <div class="avatar-controls">
+                <label class="input-label">Ваше фото</label>
+                <div class="btn-group">
+                    <button class="btn-send btn-light btn-small" onclick="window.generateRandomAvatar()">🎲 Випадкове</button>
+                    <label class="btn-send btn-light btn-small" style="cursor:pointer;">
+                        📁 Завантажити
+                        <input type="file" style="display:none;" accept="image/png, image/jpeg, image/webp" onchange="window.uploadAvatarFile(this)">
+                    </label>
+                </div>
+                <input type="hidden" id="editAvatarUrl">
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Повне ім'я</label>
+            <input type="text" id="editFullName" class="modal-input" placeholder="Введіть ім'я">
+        </div>
+
+        <div class="input-group">
+            <label class="input-label">Про себе</label>
+            <textarea id="editBio" class="modal-textarea" placeholder="Розкажіть трохи про себе..."></textarea>
+        </div>
+
+        <div class="modal-footer">
+            <button class="btn-send" onclick="window.saveProfile()">Зберегти зміни</button>
+            <button class="btn-send btn-light" onclick="window.closeProfileModal()">Скасувати</button>
+        </div>
+    </div>
+</div>
+
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

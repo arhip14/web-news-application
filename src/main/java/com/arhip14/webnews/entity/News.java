@@ -1,12 +1,17 @@
 package com.arhip14.webnews.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "news")
-@Data
+@Getter
+@Setter
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +21,7 @@ public class News {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+    private String imageUrl;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
@@ -26,4 +32,8 @@ public class News {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     private User author;
+
+    // ДОДАНО: Зв'язок з коментарями для каскадного видалення
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 }

@@ -12,4 +12,6 @@ public class NewsDTO {
     private Long categoryId; // Для вибору при створенні
     private String categoryName; // Для відображення на фронті
     private String authorEmail;
+    private String imageUrl; // ДОДАНО
+
 }

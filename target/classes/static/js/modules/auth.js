@@ -7,7 +7,11 @@ export const Auth = {
         });
         return response;
     },
+
     getAuthHeader(email, password) {
-        return 'Basic ' + btoa(email + ':' + password);
+        const credentials = email + ':' + password;
+        // Виправляємо баг з кирилицею: спочатку кодуємо в UTF-8, потім в Base64
+        const encodedCredentials = btoa(unescape(encodeURIComponent(credentials)));
+        return 'Basic ' + encodedCredentials;
     }
 };

@@ -21,8 +21,7 @@ public class AuthService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        
-        // Перевірка: якщо роль не прийшла з фронтенду, ставимо READER
+
         if (user.getRole() == null) {
             user.setRole(User.Role.READER);
         }
