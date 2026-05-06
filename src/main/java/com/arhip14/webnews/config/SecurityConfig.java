@@ -24,6 +24,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
+    private OAuth2LoginSuccessHandler oAuth2LoginSuccessHandler;
+
+    @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
     @Bean
@@ -61,20 +64,17 @@ public class SecurityConfig {
                     corsConfiguration.setAllowCredentials(true);
                     return corsConfiguration;
                 }))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authorizeHttpRequests(auth -> auth
-                        // Статика та реєстрація
                         .requestMatchers("/", "/index.html", "/auth.html", "/favicon.ico", "/css/**", "/js/**", "/uploads/**").permitAll()
                         .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/news/**", "/api/categories/**", "/api/comments/**").permitAll()
-
-                        // ДОЗВОЛЯЄМО завантаження аватара всім (для реєстрації)
+                        .requestMatchers(HttpMethod.GET, "/api/news/**", "/api/categories/**", "/api/comments/**", "/api/weather").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/upload/avatar").permitAll()
-
-                        // Вимагаємо токен для фото новин
                         .requestMatchers(HttpMethod.POST, "/api/upload/image").authenticated()
-
                         .anyRequest().authenticated()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(oAuth2LoginSuccessHandler)
                 );
 
         http.authenticationProvider(authenticationProvider());

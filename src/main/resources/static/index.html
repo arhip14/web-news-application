@@ -11,7 +11,19 @@
     <div class="search-bar">
         <input type="text" id="searchInput" placeholder="Пошук новин, тем...">
     </div>
-    <nav id="authNav"></nav>
+
+    <!-- Додано контейнер для кнопок -->
+    <div class="nav-actions">
+        <!-- ВІДЖЕТ ПОГОДИ -->
+        <div id="weatherWidget" class="weather-widget" style="display: none;">
+            <img id="weatherIcon" src="" alt="Weather" width="24" height="24">
+            <span id="weatherTemp"></span>
+            <span id="weatherCity" class="weather-city"></span>
+        </div>
+
+        <button class="theme-toggle-nav" id="mainThemeToggle" onclick="window.toggleMainTheme()">☀️</button>
+        <nav id="authNav"></nav>
+    </div>
 </header>
 
 <div id="categoryMenu" class="category-nav">
@@ -65,6 +77,11 @@
     </section>
 
     <div id="newsGrid" class="news-grid"></div>
+
+    <!-- Додаємо кнопку Завантажити ще -->
+    <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
+        <button id="loadMoreBtn" class="btn-send btn-light" style="display:none;" onclick="window.loadMoreNews()">Завантажити ще ↓</button>
+    </div>
 </main>
 
 <!-- МОДАЛКА ПРОФІЛЮ -->
@@ -109,5 +126,9 @@
 </div>
 
 <script type="module" src="js/app.js"></script>
+<script>
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+</script>
 </body>
 </html>

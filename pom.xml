@@ -14,7 +14,9 @@
         <java.version>17</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     </properties>
+
     <dependencies>
+        <!-- Базові залежності -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -32,6 +34,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+
+        <!-- OAuth2 для входу через Google (ТЗ 7.2) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-oauth2-client</artifactId>
+        </dependency>
+
+        <!-- Cloudinary для збереження фото (ТЗ 7.1) -->
+        <dependency>
+            <groupId>com.cloudinary</groupId>
+            <artifactId>cloudinary-http44</artifactId>
+            <version>1.36.0</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -43,7 +59,7 @@
             <version>${org.mapstruct.version}</version>
         </dependency>
 
-        <!-- JWT ДЛЯ БЕЗПЕКИ (NFR-02) -->
+        <!-- JWT ДЛЯ БЕЗПЕКИ -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>

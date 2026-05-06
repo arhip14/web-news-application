@@ -13,6 +13,16 @@ const getAuthHeaders = () => {
 async function init() {
     console.log("🚀 KPI News System Initializing...");
 
+    // ПЕРЕХОПЛЮЄМО ТОКЕН ВІД GOOGLE З URL (OAuth2 Support)
+    const urlParams = new URLSearchParams(window.location.search);
+    const tokenFromUrl = urlParams.get('token');
+    if (tokenFromUrl) {
+        localStorage.setItem('user', JSON.stringify({ header: 'Bearer ' + tokenFromUrl }));
+        // Очищаємо URL, щоб токен не "світився" в адресному рядку після входу
+        window.history.replaceState({}, document.title, window.location.pathname);
+        currentUser = JSON.parse(localStorage.getItem('user'));
+    }
+
     if (window.location.pathname.includes('auth.html')) return;
 
     if (currentUser && currentUser.header) {
@@ -22,6 +32,8 @@ async function init() {
     updateUI();
     await loadCategories();
     await fetchNews();
+    await fetchWeather(); // Тепер викликається автоматично
+
     bindEvents();
 }
 
@@ -140,13 +152,40 @@ async function loadCategories() {
     } catch (e) { console.error(e); }
 }
 
-async function fetchNews() {
+window.currentPage = 0;
+window.isLastPage = false;
+window.allNews = [];
+
+async function fetchNews(append = false) {
     try {
-        const news = await API.fetchNews(getAuthHeaders());
-        window.allNews = news || [];
-        renderNews(window.allNews);
+        const res = await fetch(`/api/news?page=${window.currentPage}&size=6`, { headers: getAuthHeaders() });
+        if (res.ok) {
+            const data = await res.json();
+            const newsList = data.content;
+            window.isLastPage = data.last;
+
+            if (append) {
+                window.allNews = [...window.allNews, ...newsList];
+            } else {
+                window.allNews = newsList;
+            }
+
+            renderNews(window.allNews);
+
+            const loadBtn = document.getElementById('loadMoreBtn');
+            if (loadBtn) {
+                loadBtn.style.display = window.isLastPage ? 'none' : 'inline-block';
+            }
+        }
     } catch (e) { console.error(e); }
 }
+
+window.loadMoreNews = () => {
+    if (!window.isLastPage) {
+        window.currentPage++;
+        fetchNews(true);
+    }
+};
 
 function renderNews(news) {
     const grid = document.getElementById('newsGrid');
@@ -174,15 +213,20 @@ function renderNews(news) {
                 </div>` : '<p style="font-size:12px; color:#777; margin-top:10px;">Увійдіть, щоб коментувати</p>'}
             </div>
         </article>
-    `).reverse().join('');
+    `).join(''); // ПРИБРАНО .reverse() - бо сортування тепер на бекенді
 }
 
 function bindEvents() {
-    document.getElementById('publishBtn').onclick = publish;
-    document.getElementById('searchInput').oninput = (e) => {
-        const query = e.target.value.toLowerCase();
-        renderNews(window.allNews.filter(n => n.title.toLowerCase().includes(query) || n.content.toLowerCase().includes(query)));
-    };
+    const pubBtn = document.getElementById('publishBtn');
+    if (pubBtn) pubBtn.onclick = publish;
+
+    const searchInp = document.getElementById('searchInput');
+    if (searchInp) {
+        searchInp.oninput = (e) => {
+            const query = e.target.value.toLowerCase();
+            renderNews(window.allNews.filter(n => n.title.toLowerCase().includes(query) || n.content.toLowerCase().includes(query)));
+        };
+    }
 }
 
 async function publish() {
@@ -203,14 +247,13 @@ window.deleteNews = async (id) => {
     if (confirm('Видалити новину?')) {
         const res = await fetch(`/api/news/${id}`, {
             method: 'DELETE',
-            headers: getAuthHeaders() // ДОДАНО: Для усунення 403
+            headers: getAuthHeaders()
         });
         if (res.ok) fetchNews();
-        else alert('Помилка видалення. Перевірте роль або перезайдіть в акаунт.');
+        else alert('Помилка видалення.');
     }
 };
 
-// --- КОМЕНТАРІ З ВІДПОВІДЯМИ ---
 window.toggleComments = async (id) => {
     const s = document.getElementById(`comments-${id}`);
     s.style.display = s.style.display === 'none' ? 'block' : 'none';
@@ -242,12 +285,12 @@ window.loadComments = async (newsId) => {
 
             const renderTree = (commentList, level = 0) => {
                 return commentList.map(c => `
-                    <div style="padding:10px; border-left:${level > 0 ? '2px solid var(--primary)' : 'none'}; margin-left:${level * 20}px; background:${level === 0 ? '#fcfcfc' : 'transparent'}; margin-bottom:5px; border-bottom:1px solid #eee;">
+                    <div style="padding:10px; border-left:${level > 0 ? '2px solid var(--primary)' : 'none'}; margin-left:${level * 20}px; background:${level === 0 ? 'rgba(0,0,0,0.02)' : 'transparent'}; margin-bottom:5px; border-bottom:1px solid rgba(0,0,0,0.05);">
                         <div style="display:flex; justify-content:space-between; margin-bottom:4px;">
-                            <strong style="font-size:13px; color:var(--dark);">${c.authorName}</strong>
+                            <strong style="font-size:13px;">${c.authorName}</strong>
                             <span style="font-size:10px; color:#999;">${new Date(c.createdAt).toLocaleString()}</span>
                         </div>
-                        <p style="margin:0 0 5px 0; font-size:14px; color:var(--text-main);">${c.text}</p>
+                        <p style="margin:0 0 5px 0; font-size:14px;">${c.text}</p>
                         ${currentUser ? `
                             <button style="background:none; border:none; color:var(--primary); font-size:11px; cursor:pointer; padding:0; font-weight:700;" onclick="window.showReplyBox(${c.id})">ВІДПОВІСТИ</button>
                             <div id="reply-box-${c.id}" style="display:none; margin-top:8px; gap:5px;">
@@ -284,14 +327,13 @@ window.submitComment = async (newsId, parentId = null) => {
     if (res.ok) {
         input.value = '';
         await window.loadComments(newsId);
-    } else { alert('Помилка при додаванні коментаря'); }
+    }
 };
 
-// --- ПРОФІЛЬ ---
 window.openProfileModal = () => {
     document.getElementById('editFullName').value = profileData.fullName;
-    document.getElementById('editBio').value = profileData.bio;
-    document.getElementById('editAvatarUrl').value = profileData.avatarUrl;
+    document.getElementById('editBio').value = profileData.bio || '';
+    document.getElementById('editAvatarUrl').value = profileData.avatarUrl || '';
     document.getElementById('previewAvatar').src = profileData.avatarUrl || `https://ui-avatars.com/api/?name=${encodeURIComponent(profileData.fullName)}`;
     document.getElementById('profileRoleBadge').innerText = profileData.role;
     document.getElementById('profileModal').style.display = 'flex';
@@ -352,5 +394,31 @@ window.filterByCategory = (id) => {
 };
 
 window.logout = () => { localStorage.removeItem('user'); window.location.reload(); };
+
+window.toggleMainTheme = () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    const themeBtn = document.getElementById('mainThemeToggle');
+    if (themeBtn) themeBtn.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+};
+
+async function fetchWeather() {
+    console.log("☁️ Спроба отримати погоду...");
+    try {
+        const res = await fetch('/api/weather?city=Kyiv');
+        if (res.ok) {
+            const data = await res.json();
+            const widget = document.getElementById('weatherWidget');
+            if (widget) {
+                document.getElementById('weatherIcon').src = data.iconUrl;
+                document.getElementById('weatherTemp').textContent = `${data.temperature}°C`;
+                document.getElementById('weatherCity').textContent = data.city;
+                widget.style.display = 'flex';
+            }
+        }
+    } catch (e) { console.error("Weather error", e); }
+}
 
 document.addEventListener('DOMContentLoaded', init);
