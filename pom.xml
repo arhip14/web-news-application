@@ -16,6 +16,13 @@
     </properties>
 
     <dependencies>
+        <!-- Робота з .env файлом -->
+        <dependency>
+            <groupId>io.github.cdimascio</groupId>
+            <artifactId>dotenv-java</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+
         <!-- Базові залежності -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -35,13 +42,13 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!-- OAuth2 для входу через Google (ТЗ 7.2) -->
+        <!-- OAuth2 для входу через Google -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
 
-        <!-- Cloudinary для збереження фото (ТЗ 7.1) -->
+        <!-- Cloudinary для збереження фото -->
         <dependency>
             <groupId>com.cloudinary</groupId>
             <artifactId>cloudinary-http44</artifactId>

@@ -16,5 +16,10 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="web_news_db@localhost" uuid="2e398e92-dca4-4407-8ec7-82de819652ec">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" />
+      <user-name>${DB_USERNAME}</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>
