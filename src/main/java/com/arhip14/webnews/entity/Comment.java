@@ -29,7 +29,6 @@ public class Comment {
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
-    // Зв'язок для вкладених коментарів (Відповіді)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Comment parentComment;

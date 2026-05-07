@@ -40,27 +40,22 @@ public class AuthController {
     @Autowired
     private JwtUtils jwtUtils;
 
-    // ЦЬОГО МЕТОДУ НЕ ВИСТАЧАЛО У ВАШОМУ КОДІ
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@RequestBody UserDTO loginRequest) {
         try {
-            // 1. Перевіряємо логін та пароль
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // 2. Генеруємо токен
             String jwt = jwtUtils.generateJwtToken(loginRequest.getEmail());
 
-            // 3. Формуємо відповідь
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwt);
             response.put("email", loginRequest.getEmail());
 
             return ResponseEntity.ok(response);
         } catch (Exception e) {
-            // Якщо пароль невірний — повертаємо 401
             return ResponseEntity.status(401).body("Невірний email або пароль");
         }
     }

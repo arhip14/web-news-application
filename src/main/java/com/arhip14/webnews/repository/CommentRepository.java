@@ -8,6 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    // Метод для отримання всіх коментарів до конкретної новини, відсортованих за часом
     List<Comment> findByNewsIdOrderByCreatedAtDesc(Long newsId);
 }

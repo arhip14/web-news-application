@@ -22,7 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Користувача не знайдено з email: " + email));
 
-        // Додаємо префікс ROLE_, щоб працювали PreAuthorize та ролі з ТЗ
         String roleName = "ROLE_" + user.getRole().name();
 
         return new org.springframework.security.core.userdetails.User(

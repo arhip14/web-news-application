@@ -33,7 +33,6 @@ public class News {
     @JoinColumn(name = "author_id")
     private User author;
 
-    // ДОДАНО: Зв'язок з коментарями для каскадного видалення
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 }

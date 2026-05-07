@@ -9,9 +9,9 @@ public class NewsDTO {
     private String title;
     private String content;
     private LocalDateTime createdAt;
-    private Long categoryId; // Для вибору при створенні
-    private String categoryName; // Для відображення на фронті
+    private Long categoryId;
+    private String categoryName;
     private String authorEmail;
-    private String imageUrl; // ДОДАНО
+    private String imageUrl;
 
 }

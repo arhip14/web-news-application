@@ -12,9 +12,7 @@
         <input type="text" id="searchInput" placeholder="Пошук новин, тем...">
     </div>
 
-    <!-- Додано контейнер для кнопок -->
     <div class="nav-actions">
-        <!-- ВІДЖЕТ ПОГОДИ -->
         <div id="weatherWidget" class="weather-widget" style="display: none;">
             <img id="weatherIcon" src="" alt="Weather" width="24" height="24">
             <span id="weatherTemp"></span>
@@ -27,11 +25,9 @@
 </header>
 
 <div id="categoryMenu" class="category-nav">
-    <!-- Категорії підтягнуться через JS -->
 </div>
 
 <main>
-    <!-- ПАНЕЛЬ АДМІНІСТРАТОРА (БАЧИТЬ ADMIN АБО CREATOR) -->
     <section id="adminSection" class="admin-panel" style="display:none;">
         <div id="publishArea">
             <h3 class="admin-title">Створити публікацію</h3>
@@ -55,7 +51,6 @@
 
         <hr class="admin-divider" id="adminDivider" style="display:none;">
 
-        <!-- КЕРУВАННЯ КОРИСТУВАЧАМИ (ТІЛЬКИ ДЛЯ ROLE_ADMIN) -->
         <div id="userManagerArea" style="display:none;">
             <h3 class="admin-title">Керування користувачами</h3>
             <div class="table-container">
@@ -69,7 +64,6 @@
                     </tr>
                     </thead>
                     <tbody id="adminUserTable">
-                    <!-- Користувачі підтягнуться через JS -->
                     </tbody>
                 </table>
             </div>
@@ -78,14 +72,12 @@
 
     <div id="newsGrid" class="news-grid"></div>
 
-    <!-- Додаємо кнопку Завантажити ще -->
     <div style="text-align: center; margin-top: 40px; margin-bottom: 20px;">
         <button id="loadMoreBtn" class="btn-send btn-light" style="display:none;" onclick="window.loadMoreNews()">Завантажити ще ↓</button>
     </div>
 </main>
 
-<!-- МОДАЛКА ПРОФІЛЮ -->
-<!-- МОДАЛЬНЕ ВІКНО ПРОФІЛЮ -->
+
 <div id="profileModal" class="modal-overlay" style="display:none;">
     <div class="modal-content">
         <div class="modal-header">

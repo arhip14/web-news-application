@@ -10,11 +10,9 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    // Створюємо ключ один раз для всього класу
     private final SecretKey key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     private final int jwtExpirationMs = 86400000;
 
-    // Допоміжний метод для отримання ключа (якщо він знадобиться іншим методам)
     private SecretKey getSigningKey() {
         return key;
     }
@@ -46,7 +44,6 @@ public class JwtUtils {
         }
     }
 
-    // Метод, який використовується в OAuth2LoginSuccessHandler
     public String generateTokenFromUsername(String username) {
         return Jwts.builder()
                 .setSubject(username)

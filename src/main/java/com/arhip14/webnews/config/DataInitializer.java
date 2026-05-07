@@ -22,16 +22,13 @@ public class DataInitializer {
                                       NewsRepository newsRepo,
                                       PasswordEncoder passwordEncoder) {
         return args -> {
-            // Якщо таблиця категорій порожня - значить це перший запуск, наповнюємо БД!
             if (categoryRepo.count() == 0) {
 
-                // 1. Створюємо категорії
                 Category tech = new Category(); tech.setName("Технології");
                 Category sport = new Category(); sport.setName("Спорт");
                 Category politics = new Category(); politics.setName("Політика");
                 categoryRepo.saveAll(List.of(tech, sport, politics));
 
-                // 2. Створюємо базового автора (Адміністратора)
                 User admin = new User();
                 admin.setEmail("admin@kpi.ua");
                 admin.setPassword(passwordEncoder.encode("admin123"));
@@ -39,7 +36,6 @@ public class DataInitializer {
                 admin.setRole(User.Role.ADMIN);
                 userRepo.save(admin);
 
-                // 3. Створюємо тестові новини
                 News n1 = new News();
                 n1.setTitle("🎉 Відкриття нового IT-хабу на базі ІАТЕ!");
                 n1.setContent("Сьогодні в Навчально-науковому інституті атомної та теплової енергетики відкрили новий коворкінг для студентів спеціальності 121 (Інженерія програмного забезпечення). Локація обладнана всім необхідним для комфортного кодингу.");

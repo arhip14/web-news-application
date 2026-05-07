@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebNewsApplication {
 
     public static void main(String[] args) {
-        // Завантажуємо змінні з .env у системні властивості
         Dotenv dotenv = Dotenv.configure()
                 .ignoreIfMissing()
                 .load();

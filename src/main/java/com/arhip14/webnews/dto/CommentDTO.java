@@ -10,5 +10,5 @@ public class CommentDTO {
     private LocalDateTime createdAt;
     private Long newsId;
     private String authorName;
-    private Long parentId; // ID коментаря, на який ми відповідаємо
+    private Long parentId;
 }

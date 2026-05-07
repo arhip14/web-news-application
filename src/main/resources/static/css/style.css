@@ -1,3 +1,4 @@
+/* ================== ЗМІННІ (ТЕМИ) ================== */
 :root {
     --primary: #8B1E1E;
     --primary-hover: #701616;
@@ -40,6 +41,7 @@
     --shadow-hover: 0 16px 32px rgba(0, 0, 0, 0.8);
 }
 
+/* ================== БАЗОВІ СТИЛІ ================== */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -65,6 +67,7 @@ body {
     outline-offset: 2px;
 }
 
+/* ================== СКРОЛБАР ================== */
 ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -83,7 +86,7 @@ body {
     background: var(--text-secondary);
 }
 
-/* ================== NAVBAR ТА ПАНЕЛЬ ДІЙ ================== */
+/* ================== НАВІГАЦІЯ (NAVBAR) ================== */
 .navbar {
     background: rgba(139, 30, 30, 0.95);
     backdrop-filter: blur(16px);
@@ -133,7 +136,6 @@ body {
     box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.2);
 }
 
-/* Групуємо кнопку теми та профіль поруч */
 .nav-actions {
     display: flex;
     align-items: center;
@@ -145,7 +147,7 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: var(--primary); /* Більше не чорна, а фірмова */
+    background: var(--primary);
     color: #FFFFFF !important;
     border: none;
     padding: 12px 24px;
@@ -169,7 +171,6 @@ body {
     transform: translateY(0);
 }
 
-/* Спеціальний стиль для кнопки "Увійти" в червоній шапці */
 .navbar .btn-send {
     background: var(--surface);
     color: var(--primary) !important;
@@ -193,7 +194,6 @@ body {
     box-shadow: var(--shadow-sm);
 }
 
-/* ================== КНОПКА ЗМІНИ ТЕМИ ================== */
 .theme-toggle-nav {
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -214,7 +214,99 @@ body {
     transform: scale(1.05);
 }
 
-/* ================== CATEGORY NAV ================== */
+/* ================== ВІДЖЕТ ПОГОДИ ТА ПРОФІЛЬ В NAV ================== */
+.weather-widget {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 12px;
+    border-radius: 30px;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 700;
+    transition: var(--transition-fast);
+    margin-right: 5px;
+}
+
+.weather-widget:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.weather-widget img {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.weather-city {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.8;
+    margin-left: 2px;
+}
+
+.profile-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 16px 6px 6px;
+    border-radius: 30px;
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-chip:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+.nav-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nav-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.nav-role {
+    font-size: 9px;
+    text-transform: uppercase;
+    opacity: 0.8;
+    display: block;
+    letter-spacing: 0.5px;
+}
+
+.btn-logout-icon {
+    background: rgba(0, 0, 0, 0.2);
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    transition: var(--transition-fast);
+}
+
+.btn-logout-icon:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* ================== НАВІГАЦІЯ КАТЕГОРІЙ ================== */
 .category-nav {
     display: flex;
     justify-content: center;
@@ -250,14 +342,14 @@ body {
     color: var(--bg-color);
 }
 
-/* MAIN LAYOUT */
+/* ================== ГОЛОВНИЙ КОНТЕЙНЕР ================== */
 main {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
-/* ================== ADMIN PANEL ================== */
+/* ================== ПАНЕЛЬ АДМІНІСТРАТОРА ================== */
 .admin-panel {
     background: var(--surface);
     padding: 35px;
@@ -287,7 +379,9 @@ main {
     border-radius: 4px;
 }
 
-.admin-panel input, .admin-panel select, .admin-panel textarea {
+.admin-panel input,
+.admin-panel select,
+.admin-panel textarea {
     width: 100%;
     padding: 14px 16px;
     margin-bottom: 16px;
@@ -300,7 +394,9 @@ main {
     transition: var(--transition-fast);
 }
 
-.admin-panel input:focus, .admin-panel select:focus, .admin-panel textarea:focus {
+.admin-panel input:focus,
+.admin-panel select:focus,
+.admin-panel textarea:focus {
     background: var(--surface);
     border-color: var(--primary);
     outline: none;
@@ -328,7 +424,7 @@ main {
     margin: 35px 0;
 }
 
-/* ================== NEWS GRID ================== */
+/* ================== СІТКА НОВИН ТА КАРТКИ ================== */
 .news-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
@@ -458,7 +554,7 @@ main {
     border-color: var(--text-secondary);
 }
 
-/* ================== КОМЕНТАРІ ================== */
+/* ================== СЕКЦІЯ КОМЕНТАРІВ ================== */
 .comments-section {
     background: var(--input-bg);
     padding: 20px 24px;
@@ -472,9 +568,17 @@ main {
     border-bottom-color: var(--border) !important;
 }
 
-.comments-list p { color: var(--text-main) !important; }
-.comments-list strong { color: var(--dark) !important; }
-.comments-list span { color: var(--text-secondary) !important; }
+.comments-list p {
+    color: var(--text-main) !important;
+}
+
+.comments-list strong {
+    color: var(--dark) !important;
+}
+
+.comments-list span {
+    color: var(--text-secondary) !important;
+}
 
 .comment-input-group {
     display: flex;
@@ -498,61 +602,33 @@ main {
     border-color: var(--primary) !important;
 }
 
-/* ================== ПРОФІЛЬ В НАВІГАЦІЇ ================== */
-.profile-chip {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 6px 16px 6px 6px;
-    border-radius: 30px;
-    color: #FFFFFF;
-    cursor: pointer;
-    transition: var(--transition-fast);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.profile-chip:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-1px);
-}
-
-.nav-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
-.nav-name { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; }
-.nav-role { font-size: 9px; text-transform: uppercase; opacity: 0.8; display: block; letter-spacing: 0.5px; }
-
-.btn-logout-icon {
-    background: rgba(0, 0, 0, 0.2);
-    border: none;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-size: 12px;
-    border-radius: 50%;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 8px;
-    transition: var(--transition-fast);
-}
-
-.btn-logout-icon:hover { background: rgba(0, 0, 0, 0.5); }
-
 /* ================== МОДАЛЬНІ ВІКНА ================== */
 @keyframes modalFadeIn {
-    from { opacity: 0; transform: translateY(20px) scale(0.98); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes overlayFadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .modal-overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
@@ -575,82 +651,173 @@ main {
     transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
 }
 
-.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-.modal-header h2 { margin: 0; font-size: 24px; font-weight: 800; color: var(--dark); letter-spacing: -0.5px; }
-
-.role-badge { background: var(--tag-bg); color: var(--primary); padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
-
-.avatar-edit-section { display: flex; gap: 24px; align-items: center; margin-bottom: 30px; }
-.avatar-large { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--tag-bg); box-shadow: var(--shadow-sm); }
-.avatar-controls { flex: 1; }
-
-.btn-group { display: flex; gap: 10px; margin-top: 10px; }
-.input-label { display: block; font-size: 11px; color: var(--text-secondary); font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
-
-.modal-input, .modal-textarea {
-    width: 100%; padding: 14px 16px; background: var(--input-bg); color: var(--text-main);
-    border: 1px solid var(--border); border-radius: var(--radius-sm); box-sizing: border-box;
-    font-size: 15px; margin-bottom: 24px; transition: var(--transition-fast);
-}
-
-.modal-input:focus, .modal-textarea:focus { background: var(--surface); border-color: var(--primary); outline: none; }
-.modal-textarea { height: 110px; resize: none; }
-
-.modal-footer { display: flex; gap: 12px; margin-top: 10px; }
-.modal-footer .btn-send { flex: 1; padding: 16px; border-radius: var(--radius-sm); font-size: 14px; }
-
-/* ================== RESPONSIVE (МЕДІА-КВЕРІ) ================== */
-@media (max-width: 768px) {
-    .navbar { height: auto; flex-wrap: wrap; padding: 15px 5%; }
-    .nav-actions { order: 2; width: auto; justify-content: flex-end; }
-    .search-bar { order: 3; width: 100%; margin-top: 15px; }
-    .search-bar input, .search-bar input:focus { width: 100%; }
-    .category-nav { justify-content: flex-start; overflow-x: auto; white-space: nowrap; padding: 12px 5%; -webkit-overflow-scrolling: touch; }
-    .category-tag-btn { flex-shrink: 0; }
-    .news-grid { grid-template-columns: 1fr; }
-    .admin-panel { padding: 24px; }
-    .upload-row { flex-direction: column; align-items: flex-start; }
-    .modal-content { padding: 25px; width: 92%; }
-    .avatar-edit-section { flex-direction: column; align-items: center; text-align: center; }
-    .btn-group { justify-content: center; }
-}
-
-
-/* ================== ВІДЖЕТ ПОГОДИ ================== */
-.weather-widget {
+.modal-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 6px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 6px 12px;
-    border-radius: 30px;
-    color: #FFFFFF;
-    font-size: 13px;
-    font-weight: 700;
-    transition: var(--transition-fast);
-    margin-right: 5px;
+    margin-bottom: 30px;
 }
 
-.weather-widget:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-1px);
+.modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--dark);
+    letter-spacing: -0.5px;
 }
 
-.weather-widget img {
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-}
-
-.weather-city {
+.role-badge {
+    background: var(--tag-bg);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 20px;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 800;
     text-transform: uppercase;
-    opacity: 0.8;
-    margin-left: 2px;
+    letter-spacing: 0.5px;
 }
 
+.avatar-edit-section {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.avatar-large {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--tag-bg);
+    box-shadow: var(--shadow-sm);
+}
+
+.avatar-controls {
+    flex: 1;
+}
+
+.btn-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.input-label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-secondary);
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.modal-input,
+.modal-textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--input-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    box-sizing: border-box;
+    font-size: 15px;
+    margin-bottom: 24px;
+    transition: var(--transition-fast);
+}
+
+.modal-input:focus,
+.modal-textarea:focus {
+    background: var(--surface);
+    border-color: var(--primary);
+    outline: none;
+}
+
+.modal-textarea {
+    height: 110px;
+    resize: none;
+}
+
+.modal-footer {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.modal-footer .btn-send {
+    flex: 1;
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+}
+
+/* ================== АДАПТИВНІСТЬ (МЕДІА-ЗАПИТИ) ================== */
 @media (max-width: 768px) {
+    .navbar {
+        height: auto;
+        flex-wrap: wrap;
+        padding: 15px 5%;
+    }
+
+    .nav-actions {
+        order: 2;
+        width: auto;
+        justify-content: flex-end;
+    }
+
+    .search-bar {
+        order: 3;
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .search-bar input,
+    .search-bar input:focus {
+        width: 100%;
+    }
+
+    .category-nav {
+        justify-content: flex-start;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding: 12px 5%;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .category-tag-btn {
+        flex-shrink: 0;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-panel {
+        padding: 24px;
+    }
+
+    .upload-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .modal-content {
+        padding: 25px;
+        width: 92%;
+    }
+
+    .avatar-edit-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .btn-group {
+        justify-content: center;
+    }
+
     .weather-city {
-        display: none; /* Ховаємо назву міста на мобільних для економії місця */
+        display: none;
     }
 }

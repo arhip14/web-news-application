@@ -32,10 +32,8 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public Page<NewsDTO> getAllNews(int page, int size) {
-        // Сортуємо новини від найновіших до найстаріших прямо в БД
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
 
-        // Метод map() автоматично перетворює Page<News> на Page<NewsDTO>
         return newsRepository.findAll(pageable).map(newsMapper::toDTO);
     }
 

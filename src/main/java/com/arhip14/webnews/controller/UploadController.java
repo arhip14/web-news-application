@@ -15,19 +15,16 @@ import java.util.UUID;
 @RequestMapping("/api/upload")
 public class UploadController {
 
-    // МЕТОД ДЛЯ АВАТАРІВ (ПУБЛІЧНИЙ)
     @PostMapping("/avatar")
     public ResponseEntity<?> uploadAvatar(@RequestParam("file") MultipartFile file) {
         return saveFile(file, "uploads/avatars/");
     }
 
-    // МЕТОД ДЛЯ НОВИН (ПРИВАТНИЙ)
     @PostMapping("/image")
     public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
         return saveFile(file, "uploads/news/");
     }
 
-    // Універсальний приватний метод для збереження (Clean Code)
     private ResponseEntity<?> saveFile(MultipartFile file, String subDir) {
         if (file.isEmpty()) return ResponseEntity.badRequest().body("Файл порожній");
 

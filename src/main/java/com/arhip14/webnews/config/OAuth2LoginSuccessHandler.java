@@ -25,7 +25,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
     @Autowired
     private JwtUtils jwtUtils;
 
-    @Lazy // ДОДАНО: вирішує проблему циклічної залежності
+    @Lazy
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -43,7 +43,6 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
             newUser.setFullName(name);
             newUser.setAvatarUrl(picture);
             newUser.setRole(User.Role.READER);
-            // Використовуємо passwordEncoder, який тепер завантажиться ліниво (Lazy)
             newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
             return userRepository.save(newUser);
         });

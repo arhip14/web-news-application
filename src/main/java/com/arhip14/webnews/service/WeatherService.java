@@ -19,20 +19,17 @@ public class WeatherService {
         RestTemplate restTemplate = new RestTemplate();
 
         try {
-            // Робимо запит до OpenWeather
             JsonNode response = restTemplate.getForObject(apiUrl, JsonNode.class, city, apiKey);
 
             if (response != null) {
                 WeatherDTO weatherDTO = new WeatherDTO();
                 weatherDTO.setCity(response.get("name").asText());
 
-                // Температуру округлюємо до цілого числа
                 double temp = response.get("main").get("temp").asDouble();
                 weatherDTO.setTemperature((int) Math.round(temp));
 
                 weatherDTO.setDescription(response.get("weather").get(0).get("description").asText());
 
-                // Формуємо URL для іконки погоди
                 String iconCode = response.get("weather").get(0).get("icon").asText();
                 weatherDTO.setIconUrl("https://openweathermap.org/img/wn/" + iconCode + ".png");
 

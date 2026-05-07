@@ -30,7 +30,6 @@ public class CommentController {
 
     @GetMapping("/news/{newsId}")
     public List<CommentDTO> getCommentsByNews(@PathVariable Long newsId) {
-        // Отримуємо всі коментарі (від найстаріших до новіших, щоб читати як чат)
         return commentRepository.findByNewsIdOrderByCreatedAtDesc(newsId).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -48,7 +47,6 @@ public class CommentController {
         comment.setNews(news);
         comment.setAuthor(user);
 
-        // Якщо користувач відповів на інший коментар
         if (dto.getParentId() != null) {
             Comment parent = commentRepository.findById(dto.getParentId()).orElse(null);
             comment.setParentComment(parent);
@@ -66,7 +64,6 @@ public class CommentController {
         dto.setNewsId(comment.getNews().getId());
         dto.setAuthorName(comment.getAuthor().getFullName());
 
-        // Передаємо ID батька на фронтенд
         if (comment.getParentComment() != null) {
             dto.setParentId(comment.getParentComment().getId());
         }

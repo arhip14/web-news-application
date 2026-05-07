@@ -22,6 +22,6 @@ public class WeatherController {
         if (weather != null) {
             return ResponseEntity.ok(weather);
         }
-        return ResponseEntity.status(503).build(); // Service Unavailable
+        return ResponseEntity.status(503).build();
     }
 }
