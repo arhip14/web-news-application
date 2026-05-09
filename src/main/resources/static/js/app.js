@@ -199,7 +199,7 @@ function renderNews(news) {
                 <p>${item.content.substring(0, 150)}...</p>
                 <div class="card-meta">
                     <span>Автор: ${item.authorEmail.split('@')[0]}</span>
-                    ${(profileData?.role === 'ADMIN' || (profileData?.role === 'CREATOR' && currentUser?.email === item.authorEmail))
+${(profileData?.role === 'ADMIN' || (profileData?.role === 'CREATOR' && profileData?.email === item.authorEmail))
         ? `<button class="btn-mini-delete" onclick="window.deleteNews(${item.id})">Видалити</button>` : ''}
                 </div>
                 <button class="btn-comment-toggle" onclick="window.toggleComments(${item.id})">💬 Обговорення</button>

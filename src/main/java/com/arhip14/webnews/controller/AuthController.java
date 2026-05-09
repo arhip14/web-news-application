@@ -1,10 +1,13 @@
 package com.arhip14.webnews.controller;
 
 import com.arhip14.webnews.config.JwtUtils;
+import com.arhip14.webnews.dto.LoginDTO;
 import com.arhip14.webnews.dto.UserDTO;
 import com.arhip14.webnews.entity.User;
 import com.arhip14.webnews.repository.UserRepository;
 import com.arhip14.webnews.service.AuthService;
+import com.arhip14.webnews.service.CloudinaryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,15 +17,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -40,8 +38,11 @@ public class AuthController {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private CloudinaryService cloudinaryService;
+
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@RequestBody UserDTO loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginDTO loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
@@ -61,7 +62,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> register(@Valid @RequestBody UserDTO userDTO) {
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
@@ -111,17 +112,10 @@ public class AuthController {
         if (authentication == null) return ResponseEntity.status(401).build();
 
         try {
-            String uploadDir = "uploads/avatars/";
-            File dir = new File(uploadDir);
-            if (!dir.exists()) dir.mkdirs();
-
-            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-            Path filePath = Paths.get(uploadDir + fileName);
-
-            Files.write(filePath, file.getBytes());
+            String avatarUrl = cloudinaryService.uploadFile(file);
 
             User user = userRepository.findByEmail(authentication.getName()).orElseThrow();
-            user.setAvatarUrl("/uploads/avatars/" + fileName);
+            user.setAvatarUrl(avatarUrl);
             userRepository.save(user);
 
             return ResponseEntity.ok(user);

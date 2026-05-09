@@ -2,7 +2,6 @@ import { Auth } from './modules/auth.js';
 
 let selectedRole = 'READER';
 
-// Чекаємо, поки завантажиться весь HTML
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('tabLogin').onclick = () => switchTab('login');
     document.getElementById('tabReg').onclick = () => switchTab('reg');
@@ -46,10 +45,8 @@ async function handleLogin() {
             body: JSON.stringify({ email, password })
         });
 
-        // ПЕРЕВІРКА: Якщо статус не 200-299, не намагаємося парсити JSON як успіх
         if (res.ok) {
             const data = await res.json();
-            // Важливо: додаємо пробіл після Bearer (вимога NFR-02)
             const token = `Bearer ${data.token}`;
             localStorage.setItem('user', JSON.stringify({ email: data.email, header: token }));
             window.location.replace('/');
@@ -65,7 +62,6 @@ async function handleLogin() {
 }
 
 async function handleRegister() {
-    // Шукаємо поле з фотографією безпечним способом
     const avatarInput = document.getElementById('regAvatarUrl');
 
     const userData = {
@@ -84,13 +80,10 @@ async function handleRegister() {
     try {
         const res = await Auth.register(userData);
         if (res.ok) {
-            // ВИПРАВЛЕНО: Замість перекидання на головну — просимо увійти
             alert('✅ Акаунт успішно створено! Будь ласка, увійдіть у систему.');
 
-            // Перемикаємо на вкладку логіну
             switchTab('login');
 
-            // Підставляємо пошту, щоб користувачу було зручніше, але пароль залишаємо пустим для безпеки
             document.getElementById('loginEmail').value = userData.email;
             document.getElementById('loginPass').value = '';
         } else {
@@ -102,9 +95,7 @@ async function handleRegister() {
     }
 }
 
-// ==========================================
-// ФУНКЦІЇ ДЛЯ АВАТАРА (РЕЄСТРАЦІЯ)
-// ==========================================
+
 window.generateRegAvatar = () => {
     const seed = Math.random().toString(36).substring(7);
     const randomUrl = `https://api.dicebear.com/7.x/adventurer/svg?seed=${seed}&backgroundColor=c0aede,b6e3f4,d1d4f9,ffd5dc,ffdfbf`;
@@ -122,17 +113,15 @@ window.uploadRegAvatar = async (input) => {
     try {
         const res = await fetch('/api/upload/avatar', {
             method: 'POST',
-            // Токен не потрібен, бо SecurityConfig дозволяє permitAll()
             body: formData
         });
 
         if (res.ok) {
             const fileUrl = await res.text();
-            // Зберігаємо URL у приховане поле, щоб воно відправилося при реєстрації
             const avatarUrlInput = document.getElementById('regAvatarUrl');
             if (avatarUrlInput) avatarUrlInput.value = fileUrl;
 
-            // Оновлюємо картинку-прев'ю (перевір чи ID правильний в auth.html)
+
             const previewImg = document.getElementById('regAvatarPreview') || document.getElementById('regPreviewAvatar');
             if (previewImg) previewImg.src = fileUrl;
 

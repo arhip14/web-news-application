@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy; // ДОДАНО
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -49,7 +49,7 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         String token = jwtUtils.generateTokenFromUsername(user.getEmail());
 
-        // Повертаємо токен на фронтенд через URL-параметр
+        // Повертаємо передачу токена через URL, щоб app.js міг його перехопити
         String targetUrl = "/?token=" + token;
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
