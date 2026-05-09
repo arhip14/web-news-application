@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f1e98550-46fb-4a95-9df3-0ce13e03c94b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/config/CloudinaryConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/dto/LoginDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/service/CloudinaryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/config/AuthTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/config/AuthTokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/config/OAuth2LoginSuccessHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/config/OAuth2LoginSuccessHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/controller/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/controller/NewsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/controller/UploadController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/controller/UploadController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/dto/NewsDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/dto/NewsDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/arhip14/webnews/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/auth-page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/auth-page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/modules/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/modules/auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +127,7 @@
       <workItem from="1778084825206" duration="925000" />
       <workItem from="1778135682323" duration="2936000" />
       <workItem from="1778173715785" duration="603000" />
-      <workItem from="1778356105171" duration="2588000" />
+      <workItem from="1778356105171" duration="3603000" />
     </task>
     <servers />
   </component>

@@ -49,7 +49,6 @@ public class OAuth2LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
 
         String token = jwtUtils.generateTokenFromUsername(user.getEmail());
 
-        // Повертаємо передачу токена через URL, щоб app.js міг його перехопити
         String targetUrl = "/?token=" + token;
         getRedirectStrategy().sendRedirect(request, response, targetUrl);
     }
